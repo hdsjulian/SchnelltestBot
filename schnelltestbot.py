@@ -5,7 +5,7 @@ import urllib3
 import re 
 from botcode import botcode
 http = urllib3.PoolManager()
-chatId = -1001444936568
+chatId = -1001450910076
 bot = Bot(botcode)
 
 def rossmann():
@@ -25,7 +25,7 @@ def dm():
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
     })
     foo = json.loads(infile.data.decode('utf-8'))
-    
+
     if (foo[0]["purchasable"] == True):
         bot.sendMessage(chatId, "DM hat Tests verfügbar! "+productURL)
         return True
