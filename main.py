@@ -17,3 +17,6 @@ async def rossmann():
 @app.get("/lidl")
 async def lidl():
     return scraper.getResults()["lidl"]
+@app.get("/tedi")
+async def tedi():
+    return scraper.getResults()["tedi"]
