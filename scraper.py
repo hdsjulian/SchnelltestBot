@@ -10,13 +10,14 @@ class Scraper:
             'dm': {"name": "dm", "url": "https://products.dm.de/product/de/products/gtins/6921963712141?view=details", "productURL": "https://www.dm.de/boson-corona-schnelltest-selbsttest-p6921963712141.html", "function": self.dm, "status": False},
             'lidl': {"name": "Lidl", "url":"https://www.lidl.de/de/5er-set-corona-sars-cov-2-antigenschnelltest-boson/p374797", "productURL": "https://www.lidl.de/de/5er-set-corona-sars-cov-2-antigenschnelltest-boson/p374797","function": self.lidl,  "status": False},
             'tedi': {"name": "Tedi", "url":"https://tedi.de/LYHER-Covid-19-Antigen-Schnelltest-Nasal-Einzelverpackung", "productURL":"https://tedi.de/LYHER-Covid-19-Antigen-Schnelltest-Nasal-Einzelverpackung'", "function": self.tedi, "status": False},
-            'doccheck': {
-                'name': 'DocCheck',
-                'url': 'https://www.doccheckshop.eu/laboratory/tests/rapid-coronavirus-tests/12076/roche-sars-cov-2-rapid-antigen-test',
-                'productURL': 'https://www.doccheckshop.eu/laboratory/tests/rapid-coronavirus-tests/12076/roche-sars-cov-2-rapid-antigen-test',
-                'function': self.doc_check,
-                'status': False
-            }
+            'mueller' : {"name": "Mueller", "url":"https://www.mueller.de/p/hotgen-covid-19-antigen-nasal-schnelltest-2718500/", "productURL":"https://www.mueller.de/p/hotgen-covid-19-antigen-nasal-schnelltest-2718500/", "function": self.mueller, "status": False}
+            #'doccheck': {
+            #    'name': 'DocCheck',
+            #    'url': 'https://www.doccheckshop.eu/laboratory/tests/rapid-coronavirus-tests/12076/roche-sars-cov-2-rapid-antigen-test',
+            #    'productURL': 'https://www.doccheckshop.eu/laboratory/tests/rapid-coronavirus-tests/12076/roche-sars-cov-2-rapid-antigen-test',
+            #    'function': self.doc_check,
+            #    'status': False
+            #}
         }
 
     def doc_check(self):
@@ -33,6 +34,15 @@ class Scraper:
             self.sources["doccheck"]["status"] = True
             return True
 
+    def mueller(self):
+        infile = self.http.request('GET', self.sources['mueller']["url"], redirect=False, headers={
+            'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
+        })
+        if (infile.status !=200):
+            self.sources["mueller"]["status"] = False
+        else:
+            self.sources["mueller"]["status"] = True
+            return True            
 
     def rossmann(self):
         infile = self.http.request('GET', self.sources["rossmann"]["url"], redirect=False, headers={
