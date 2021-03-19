@@ -13,7 +13,7 @@ class Scraper:
             'doccheck': {
                 'name': 'DocCheck',
                 'url': 'https://www.doccheckshop.eu/laboratory/tests/rapid-coronavirus-tests/12076/roche-sars-cov-2-rapid-antigen-test',
-                'product_url': 'https://www.doccheckshop.eu/laboratory/tests/rapid-coronavirus-tests/12076/roche-sars-cov-2-rapid-antigen-test',
+                'productURL': 'https://www.doccheckshop.eu/laboratory/tests/rapid-coronavirus-tests/12076/roche-sars-cov-2-rapid-antigen-test',
                 'function': self.doc_check,
                 'status': False
             }
