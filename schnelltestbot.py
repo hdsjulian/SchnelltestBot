@@ -16,8 +16,14 @@ while True:
     scraper.all()    
     results = scraper.getResults()
     for k,v in results.items():
-        if v["status"] == "True":
-            bot.sendMessage(chatId, "Test Verfuegbar bei "+v["name"]+"! "+v["productURL"])
+        if v["changed"] == True: 
+            if v["status"] == True:
+                bot.sendMessage(chatId, "Test Verfügbar bei "+v["name"]+"! "+v["productURL"])
+            elif v["status"] == False:
+                bot.sendMessage(chatId, "Sieht nun aus als sei der Test bei "+v["name"]+" ausverkauft")
+            v["changed"] == False
+        if v["changed"] == True:
+
     sleep(60)
 
 

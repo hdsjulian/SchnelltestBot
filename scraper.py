@@ -19,19 +19,32 @@ class Scraper:
             #    'status': False
             #}
         }
+        f = open("stati.txt", "r")
+        stati = json.loads(f.read())
+        f.close()
+        for k, v in self.sources.items():
+            self.sources[k]["status"] = stati[k]
+            self.sources[k]["changed"] = False
+        
+    def statusCheck(self, market):
+        newStatus = self.sources[market]["function"]()
+        if (self.sources[market]["status"] != newStatus): 
+            self.sources[market]["status"] = newStatus
+            self.sources[market]["changed"] = True
+            return True
+        else: 
+            self.sources[market]["changed"] = False
+            return False
 
     def doc_check(self):
         infile = self.http.request('GET', self.sources['doccheck']["url"], redirect=False, headers={
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
         })
         if (infile.status !=200):
-            self.sources["doccheck"]["status"] = False
             return False
         if 'This item is not available' in infile.data.decode('utf-8'):
-            self.sources["doccheck"]["status"] = False
             return False
         else:
-            self.sources["doccheck"]["status"] = True
             return True
 
     def mueller(self):
@@ -39,9 +52,8 @@ class Scraper:
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
         })
         if (infile.status !=200):
-            self.sources["mueller"]["status"] = False
+            return False
         else:
-            self.sources["mueller"]["status"] = True
             return True            
 
     def rossmann(self):
@@ -49,10 +61,8 @@ class Scraper:
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
         })
         if (infile.status == 200): 
-            self.sources["rossmann"]["status"] = True
             return True
         if (infile.status == 301):
-            self.sources["rossmann"]["status"] = False
             return False
 
     def dm(self): 
@@ -62,10 +72,8 @@ class Scraper:
         foo = json.loads(infile.data.decode('utf-8'))
 
         if (foo[0]["purchasable"] == True):
-            self.sources["dm"]["status"] = True
             return True
         if (foo[0]["purchasable"] == False):
-            self.sources["dm"]["status"] = False
             return False
 
     def lidl(self):
@@ -73,14 +81,11 @@ class Scraper:
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
         })
         if (infile.status != 200):
-            self.sources["lidl"]["status"] = False
             return False
         match = re.findall("isOnlineOrderable.* ([a-z]*)", infile.data.decode('utf-8'))
         if match[0] == "false":
-            self.sources["lidl"]["status"] = False
             return False
         if match[0] == "true":
-            self.sources["lidl"]["status"] = True
             return True
 
     def tedi(self):
@@ -88,24 +93,26 @@ class Scraper:
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
         })
         if (infile.status != 200):
-            self.sources["tedi"]["status"] = False
             return False
         match = re.findall("(OutOfStock)", infile.data.decode('utf-8'))
         if len(match) > 0: 
-            self.sources["tedi"]["status"] = False
             return False
         else: 
-            self.sources["tedi"]["status"] = True
             return False
 
     def all(self): 
+        stati = {}
         for k, v in self.sources.items():
-            print (v)
-            v["function"]()
+            self.statusCheck(k)
+            stati[k] = self.sources[k]["status"]
+        f = open("stati.txt", "w")
+        f.write(json.dumps(stati))
+        f.close()
+
             
     def getResults(self):
         returnDict = {}
         for k, v in self.sources.items():
-            returnDict[k] = {"name": v["name"], "url":v["url"], "productURL": v["productURL"], "status": str(v["status"])}
+            returnDict[k] = {"name": v["name"], "url":v["url"], "productURL": v["productURL"], "status": v["status"], "changed":v["changed"]}
         return returnDict
 
