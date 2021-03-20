@@ -1,0 +1,1 @@
+{"rossmann": false, "dm": false, "lidl": true, "tedi": false, "mueller": false}
