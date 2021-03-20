@@ -22,8 +22,6 @@ while True:
             elif v["status"] == False:
                 bot.sendMessage(chatId, "Sieht nun aus als sei der Test bei "+v["name"]+" ausverkauft")
             v["changed"] == False
-        if v["changed"] == True:
-
     sleep(60)
 
 
