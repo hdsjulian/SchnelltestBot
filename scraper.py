@@ -16,7 +16,8 @@ class Scraper:
             'mueller2' : {"name": "Mueller", "url":"https://www.mueller.de/p/hotgen-covid-19-antigen-nasal-selbsttest-2721685/", "productURL":"https://www.mueller.de/p/hotgen-covid-19-antigen-nasal-selbsttest-2721685/", "function": self.mueller, "status": False},
             'rossmannHotgen': {"name": "Rossmann", "url": "https://www.rossmann.de/de/gesundheit-hotgen-coronavirus2019-ncov-antigentest/p/6970297534073", "productURL": "https://www.rossmann.de/de/gesundheit-hotgen-coronavirus2019-ncov-antigentest/p/6970297534073", "function": self.rossmann, "status": False}, 
             'rossmannLyher': {"name": "Rossmann", "url": "https://www.rossmann.de/de/gesundheit-lyher-antigen-testkit/p/6972412610280", "productURL": "https://www.rossmann.de/de/gesundheit-lyher-antigen-testkit/p/6972412610280", "function": self.rossmann, "status": False}, 
-            'dmLyher': {"name": "dm", "url": "https://products.dm.de/product/de/products/gtins/6972412610280?view=details", "productURL": "https://www.dm.de/lyher-corona-schnelltest-selbsttest-p6972412610280.html", "function": self.dm, "status": False  }
+            'dmLyher': {"name": "dm", "url": "https://products.dm.de/product/de/products/gtins/6972412610280?view=details", "productURL": "https://www.dm.de/lyher-corona-schnelltest-selbsttest-p6972412610280.html", "function": self.dm, "status": False  },
+            'tediLyher': {"name": "Tedi", "url": "https://tedi.de/LYHER-Covid-19-Antigen-Schnelltest-Nasal-Einzelverpackung", "productURL": "https://tedi.de/LYHER-Covid-19-Antigen-Schnelltest-Nasal-Einzelverpackung", "function": self.tedi, "status": False}
                         #'doccheck': {
             #    'name': 'DocCheck',
             #    'url': 'https://www.doccheckshop.eu/laboratory/tests/rapid-coronavirus-tests/12076/roche-sars-cov-2-rapid-antigen-test',
@@ -117,7 +118,7 @@ class Scraper:
         if len(match) > 0: 
             return False
         else: 
-            return False
+            return True
 
     def all(self): 
         stati = {}

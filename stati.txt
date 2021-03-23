@@ -1,1 +1,1 @@
-{"rossmann": false, "dm": false, "lidl": false, "tedi": false, "mueller": false, "mueller2": true, "rossmannHotgen": false, "rossmannLyher": true, "dmLyher": false}
+{"rossmann": false, "dm": false, "lidl": false, "tedi": false, "mueller": false, "mueller2": true, "rossmannHotgen": false, "rossmannLyher": true, "dmLyher": false, "tediLyher": false}
