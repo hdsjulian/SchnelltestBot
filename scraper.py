@@ -1,6 +1,8 @@
 import json
 import urllib3
 import re 
+import time
+
 
 class Scraper: 
     def __init__(self):
@@ -11,6 +13,7 @@ class Scraper:
             'lidl': {"name": "Lidl", "url":"https://www.lidl.de/de/5er-set-corona-sars-cov-2-antigenschnelltest-boson/p374797", "productURL": "https://www.lidl.de/de/5er-set-corona-sars-cov-2-antigenschnelltest-boson/p374797","function": self.lidl,  "status": False},
             'tedi': {"name": "Tedi", "url":"https://tedi.de/LYHER-Covid-19-Antigen-Schnelltest-Nasal-Einzelverpackung", "productURL":"https://tedi.de/LYHER-Covid-19-Antigen-Schnelltest-Nasal-Einzelverpackung'", "function": self.tedi, "status": False},
             'mueller' : {"name": "Mueller", "url":"https://www.mueller.de/p/hotgen-covid-19-antigen-nasal-schnelltest-2718500/", "productURL":"https://www.mueller.de/p/hotgen-covid-19-antigen-nasal-schnelltest-2718500/", "function": self.mueller, "status": False}
+            'mueller2' : {"name": "Mueller", "url":"https://www.mueller.de/p/hotgen-covid-19-antigen-nasal-selbsttest-2721685/", "productURL":"https://www.mueller.de/p/hotgen-covid-19-antigen-nasal-selbsttest-2721685/", "function": self.mueller, "status": False}
             #'doccheck': {
             #    'name': 'DocCheck',
             #    'url': 'https://www.doccheckshop.eu/laboratory/tests/rapid-coronavirus-tests/12076/roche-sars-cov-2-rapid-antigen-test',
@@ -47,11 +50,16 @@ class Scraper:
         else:
             return True
 
-    def mueller(self):
+    def mueller(self, counter= 0):
         infile = self.http.request('GET', self.sources['mueller']["url"], redirect=False, headers={
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
         })
         if (infile.status !=200):
+            if (counter <3):
+                counter += 1
+                time.sleep(10)
+                if self.mueller(counter) == True:
+                    return True
             return False
         else:
             return True            

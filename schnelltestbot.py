@@ -7,9 +7,9 @@ from botcode import botcode
 from scraper import Scraper
 scraper = Scraper()
 #debug id
-#chatId = -1001397128869
+chatId = -1001397128869
 #real id
-chatId = -1001450910076
+#chatId = -1001450910076
 bot = Bot(botcode)
 
 while True: 
