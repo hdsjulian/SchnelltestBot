@@ -12,7 +12,7 @@ class Scraper:
             'dm': {"name": "dm", "url": "https://products.dm.de/product/de/products/gtins/6921963712141?view=details", "productURL": "https://www.dm.de/boson-corona-schnelltest-selbsttest-p6921963712141.html", "function": self.dm, "status": False},
             'lidl': {"name": "Lidl", "url":"https://www.lidl.de/de/5er-set-corona-sars-cov-2-antigenschnelltest-boson/p374797", "productURL": "https://www.lidl.de/de/5er-set-corona-sars-cov-2-antigenschnelltest-boson/p374797","function": self.lidl,  "status": False},
             'tedi': {"name": "Tedi", "url":"https://tedi.de/LYHER-Covid-19-Antigen-Schnelltest-Nasal-Einzelverpackung", "productURL":"https://tedi.de/LYHER-Covid-19-Antigen-Schnelltest-Nasal-Einzelverpackung'", "function": self.tedi, "status": False},
-            'mueller' : {"name": "Mueller", "url":"https://www.mueller.de/p/hotgen-covid-19-antigen-nasal-schnelltest-2718500/", "productURL":"https://www.mueller.de/p/hotgen-covid-19-antigen-nasal-schnelltest-2718500/", "function": self.mueller, "status": False}
+            'mueller' : {"name": "Mueller", "url":"https://www.mueller.de/p/hotgen-covid-19-antigen-nasal-schnelltest-2718500/", "productURL":"https://www.mueller.de/p/hotgen-covid-19-antigen-nasal-schnelltest-2718500/", "function": self.mueller, "status": False},
             'mueller2' : {"name": "Mueller", "url":"https://www.mueller.de/p/hotgen-covid-19-antigen-nasal-selbsttest-2721685/", "productURL":"https://www.mueller.de/p/hotgen-covid-19-antigen-nasal-selbsttest-2721685/", "function": self.mueller, "status": False}
             #'doccheck': {
             #    'name': 'DocCheck',
