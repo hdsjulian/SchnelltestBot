@@ -18,7 +18,6 @@ class Scraper:
             'rossmannLyher': {"name": "Rossmann", "url": "https://www.rossmann.de/de/gesundheit-lyher-antigen-testkit/p/6972412610280", "productURL": "https://www.rossmann.de/de/gesundheit-lyher-antigen-testkit/p/6972412610280", "function": self.rossmann, "status": False}, 
             'dmLyher': {"name": "dm", "url": "https://products.dm.de/product/de/products/gtins/6972412610280?view=details", "productURL": "https://www.dm.de/lyher-corona-schnelltest-selbsttest-p6972412610280.html", "function": self.dm, "status": False  },
             'dmHotgen': {"name": "dm", "url": "https://products.dm.de/product/de/products/gtins/6970297534073?view=details", "productURL": "https://www.dm.de/hotgen-corona-schnelltest-selbsttest-p6970297534073.html", "function": self.dm, "status": False  },
-            'tediLyher': {"name": "Tedi", "url": "https://tedi.de/LYHER-Covid-19-Antigen-Schnelltest-Nasal-Einzelverpackung", "productURL": "https://tedi.de/LYHER-Covid-19-Antigen-Schnelltest-Nasal-Einzelverpackung", "function": self.tedi, "status": False}
                         #'doccheck': {
             #    'name': 'DocCheck',
             #    'url': 'https://www.doccheckshop.eu/laboratory/tests/rapid-coronavirus-tests/12076/roche-sars-cov-2-rapid-antigen-test',
