@@ -17,8 +17,7 @@ class Scraper:
             'rossmannHotgen': {"name": "Rossmann", "url": "https://www.rossmann.de/de/gesundheit-hotgen-coronavirus2019-ncov-antigentest/p/6970297534073", "productURL": "https://www.rossmann.de/de/gesundheit-hotgen-coronavirus2019-ncov-antigentest/p/6970297534073", "function": self.rossmann, "status": False}, 
             'rossmannLyher': {"name": "Rossmann", "url": "https://www.rossmann.de/de/gesundheit-lyher-antigen-testkit/p/6972412610280", "productURL": "https://www.rossmann.de/de/gesundheit-lyher-antigen-testkit/p/6972412610280", "function": self.rossmann, "status": False}, 
             'dmLyher': {"name": "dm", "url": "https://products.dm.de/product/de/products/gtins/6972412610280?view=details", "productURL": "https://www.dm.de/lyher-corona-schnelltest-selbsttest-p6972412610280.html", "function": self.dm, "status": False  },
-            'dmHotgen': {"name": "dm", "url": "https://products.dm.de/product/de/products/gtins/6970297534073?view=details", "productURL": "https://www.dm.de/hotgen-corona-schnelltest-selbsttest-p6970297534073.html", "function": self.dm, "status": False  },
-            'reweBoson':{"name": "REWE", "url": "https://shop.rewe.de/p/boson-rapid-sars-cov-2-antigen-schnelltest-card-5-stueck/8591611?parcelOnly=true", "productURL": "https://shop.rewe.de/p/boson-rapid-sars-cov-2-antigen-schnelltest-card-5-stueck/8591611?parcelOnly=true", "function": self.rewe, "status": False}
+            'dmHotgen': {"name": "dm", "url": "https://products.dm.de/product/de/products/gtins/6970297534073?view=details", "productURL": "https://www.dm.de/hotgen-corona-schnelltest-selbsttest-p6970297534073.html", "function": self.dm, "status": False  }}
                         #'doccheck': {
             #    'name': 'DocCheck',
             #    'url': 'https://www.doccheckshop.eu/laboratory/tests/rapid-coronavirus-tests/12076/roche-sars-cov-2-rapid-antigen-test',
@@ -50,14 +49,10 @@ class Scraper:
             self.sources[market]["changed"] = False
             return False
     def rewe(self, market="rewe"):
-        print("rewe")
         infile = self.http.request('GET', self.sources[market]["url"], redirect=False)
         if (infile.status !=200):
-            print(self.sources[market]["url"])
-            print(infile.status)
             return False
         match = re.findall('"availableQuantity":([0-9]*)', infile.data.decode('utf-8'))
-        print(match)
         if str(match[0] > 0):
             return True
         else: 
