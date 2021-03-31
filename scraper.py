@@ -18,6 +18,7 @@ class Scraper:
             'rossmannLyher': {"name": "Rossmann", "url": "https://www.rossmann.de/de/gesundheit-lyher-antigen-testkit/p/6972412610280", "productURL": "https://www.rossmann.de/de/gesundheit-lyher-antigen-testkit/p/6972412610280", "function": self.rossmann, "status": False}, 
             'dmLyher': {"name": "dm", "url": "https://products.dm.de/product/de/products/gtins/6972412610280?view=details", "productURL": "https://www.dm.de/lyher-corona-schnelltest-selbsttest-p6972412610280.html", "function": self.dm, "status": False  },
             'dmHotgen': {"name": "dm", "url": "https://products.dm.de/product/de/products/gtins/6970297534073?view=details", "productURL": "https://www.dm.de/hotgen-corona-schnelltest-selbsttest-p6970297534073.html", "function": self.dm, "status": False  },
+            'reweBoson':{"name": "REWE", "url": "https://shop.rewe.de/p/boson-rapid-sars-cov-2-antigen-schnelltest-card-5-stueck/8591611?parcelOnly=true", "productURL": "https://shop.rewe.de/p/boson-rapid-sars-cov-2-antigen-schnelltest-card-5-stueck/8591611?parcelOnly=true", "function": self.rewe, "status": False}
                         #'doccheck': {
             #    'name': 'DocCheck',
             #    'url': 'https://www.doccheckshop.eu/laboratory/tests/rapid-coronavirus-tests/12076/roche-sars-cov-2-rapid-antigen-test',
@@ -48,7 +49,19 @@ class Scraper:
         else: 
             self.sources[market]["changed"] = False
             return False
-
+    def rewe(self, market="rewe"):
+        print("rewe")
+        infile = self.http.request('GET', self.sources[market]["url"], redirect=False)
+        if (infile.status !=200):
+            print(self.sources[market]["url"])
+            print(infile.status)
+            return False
+        match = re.findall('"availableQuantity":([0-9]*)', infile.data.decode('utf-8'))
+        print(match)
+        if str(match[0] > 0):
+            return True
+        else: 
+            return False
     def doc_check(self):
         infile = self.http.request('GET', self.sources['doccheck']["url"], redirect=False, headers={
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
@@ -64,10 +77,15 @@ class Scraper:
         infile = self.http.request('GET', self.sources[market]["url"], redirect=False, headers={
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
         })
-        if (infile.status !=200):
+        if(infile.status == 301):
+            return False
+        if (infile.status == 404):
             if (counter <3):
                 counter += 1
-                time.sleep(10)
+                time.sleep(1)
+                print (self.sources[market]["url"])
+                print (infile.status)
+                print (counter)
                 if self.mueller(market, counter) == True:
                     return True
             return False
@@ -108,11 +126,19 @@ class Scraper:
         if match[0] == "true":
             return True
 
-    def tedi(self, market="tedi"):
+    def tedi(self, market="tedi", counter= 0):
         infile = self.http.request('GET', self.sources[market]["url"], redirect=False, headers={
             'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
         })
         if (infile.status != 200):
+            if (counter <3):
+                counter += 1
+                time.sleep(1)
+                print (self.sources[market]["url"])
+                print (infile.status)
+                print (counter)
+                if self.tedi(market, counter) == True:
+                    return True
             return False
         match = re.findall("(OutOfStock)", infile.data.decode('utf-8'))
         if len(match) > 0: 
@@ -124,6 +150,7 @@ class Scraper:
         stati = {}
         for k, v in self.sources.items():
             self.statusCheck(k)
+            print(k)
             stati[k] = self.sources[k]["status"]
         f = open("stati.txt", "w")
         f.write(json.dumps(stati))
