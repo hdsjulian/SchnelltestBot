@@ -83,9 +83,6 @@ class Scraper:
             if (counter <3):
                 counter += 1
                 time.sleep(1)
-                print (self.sources[market]["url"])
-                print (infile.status)
-                print (counter)
                 if self.mueller(market, counter) == True:
                     return True
             return False
@@ -134,9 +131,6 @@ class Scraper:
             if (counter <3):
                 counter += 1
                 time.sleep(1)
-                print (self.sources[market]["url"])
-                print (infile.status)
-                print (counter)
                 if self.tedi(market, counter) == True:
                     return True
             return False
@@ -150,7 +144,6 @@ class Scraper:
         stati = {}
         for k, v in self.sources.items():
             self.statusCheck(k)
-            print(k)
             stati[k] = self.sources[k]["status"]
         f = open("stati.txt", "w")
         f.write(json.dumps(stati))
