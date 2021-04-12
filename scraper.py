@@ -8,14 +8,12 @@ class Scraper:
     def __init__(self):
         self.http = urllib3.PoolManager()
         self.sources = {
-            'rossmann': {"name": "Rossmann", "url": "https://www.rossmann.de/de/gesundheit-boson-rapid-sars-cov-2-antigen-test/p/6921963712141", "productURL": "https://www.rossmann.de/de/gesundheit-boson-rapid-sars-cov-2-antigen-test/p/6921963712141", "function": self.rossmann, "status": False},
+
             'dm': {"name": "dm", "url": "https://products.dm.de/product/de/products/gtins/6921963712141?view=details", "productURL": "https://www.dm.de/boson-corona-schnelltest-selbsttest-p6921963712141.html", "function": self.dm, "status": False},
             'lidl': {"name": "Lidl", "url":"https://www.lidl.de/de/5er-set-corona-sars-cov-2-antigenschnelltest-boson/p374797", "productURL": "https://www.lidl.de/de/5er-set-corona-sars-cov-2-antigenschnelltest-boson/p374797","function": self.lidl,  "status": False},
             'tedi': {"name": "Tedi", "url":"https://tedi.de/LYHER-Covid-19-Antigen-Schnelltest-Nasal-Einzelverpackung", "productURL":"https://tedi.de/LYHER-Covid-19-Antigen-Schnelltest-Nasal-Einzelverpackung'", "function": self.tedi, "status": False},
             'mueller' : {"name": "Mueller", "url":"https://www.mueller.de/p/hotgen-covid-19-antigen-nasal-schnelltest-2718500/", "productURL":"https://www.mueller.de/p/hotgen-covid-19-antigen-nasal-schnelltest-2718500/", "function": self.mueller, "status": False},
             'mueller2' : {"name": "Mueller", "url":"https://www.mueller.de/p/hotgen-covid-19-antigen-nasal-selbsttest-2721685/", "productURL":"https://www.mueller.de/p/hotgen-covid-19-antigen-nasal-selbsttest-2721685/", "function": self.mueller, "status": False},
-            'rossmannHotgen': {"name": "Rossmann", "url": "https://www.rossmann.de/de/gesundheit-hotgen-coronavirus2019-ncov-antigentest/p/6970297534073", "productURL": "https://www.rossmann.de/de/gesundheit-hotgen-coronavirus2019-ncov-antigentest/p/6970297534073", "function": self.rossmann, "status": False}, 
-            'rossmannLyher': {"name": "Rossmann", "url": "https://www.rossmann.de/de/gesundheit-lyher-antigen-testkit/p/6972412610280", "productURL": "https://www.rossmann.de/de/gesundheit-lyher-antigen-testkit/p/6972412610280", "function": self.rossmann, "status": False}, 
             'dmLyher': {"name": "dm", "url": "https://products.dm.de/product/de/products/gtins/6972412610280?view=details", "productURL": "https://www.dm.de/lyher-corona-schnelltest-selbsttest-p6972412610280.html", "function": self.dm, "status": False  },
             'dmHotgen': {"name": "dm", "url": "https://products.dm.de/product/de/products/gtins/6970297534073?view=details", "productURL": "https://www.dm.de/hotgen-corona-schnelltest-selbsttest-p6970297534073.html", "function": self.dm, "status": False  },
             'lidlMP' : {"name": "lidl", "url": "https://www.lidl.de/de/5er-set-mp-rapid-sars-cov-2-antigen-schnelltest/p376622?fromRecommendation=true&scenario=personalized", "productURL":"https://www.lidl.de/de/5er-set-mp-rapid-sars-cov-2-antigen-schnelltest/p376622?fromRecommendation=true&scenario=personalized", "function": self.lidl, "status": False}
@@ -27,6 +25,9 @@ class Scraper:
             #    'status': False
             #}
         }
+        #'rossmannHotgen': {"name": "Rossmann", "url": "https://www.rossmann.de/de/gesundheit-hotgen-coronavirus2019-ncov-antigentest/p/6970297534073", "productURL": "https://www.rossmann.de/de/gesundheit-hotgen-coronavirus2019-ncov-antigentest/p/6970297534073", "function": self.rossmann, "status": False}, 
+        #'rossmannLyher': {"name": "Rossmann", "url": "https://www.rossmann.de/de/gesundheit-lyher-antigen-testkit/p/6972412610280", "productURL": "https://www.rossmann.de/de/gesundheit-lyher-antigen-testkit/p/6972412610280", "function": self.rossmann, "status": False}, 
+        #'rossmann': {"name": "Rossmann", "url": "https://www.rossmann.de/de/gesundheit-boson-rapid-sars-cov-2-antigen-test/p/6921963712141", "productURL": "https://www.rossmann.de/de/gesundheit-boson-rapid-sars-cov-2-antigen-test/p/6921963712141", "function": self.rossmann, "status": False},
         f = open("stati.txt", "r")
         stati = json.loads(f.read())
         f.close()
