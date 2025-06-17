@@ -6,6 +6,7 @@ import re
 import datetime
 from telegram import Bot
 from botcode import botcode
+import sys
 import argparse
 parser = argparse.ArgumentParser(description='A bot that sends a message every 60 seconds after a random sleep.')
 parser.add_argument('min_sleep', type=int, help='Minimum sleep time in seconds', default=900)
@@ -35,14 +36,17 @@ while True:
     now = datetime.datetime.now()
     print(f"Current time: {now.hour}") 
     if (now.hour > 21 or now.hour < 8):
-        print("It's night time, sleeping for 1 hour")
         sleep(3600)
         continue
-    else:
-        print("It's daytime, continuing with the bot operations")
-        print(f"Current time: {now.hour}") 
     number = random.randint(args.min_sleep, args.max_sleep)
+    now = datetime.datetime.now()
+    next_call_time = now + datetime.timedelta(seconds=number)
+
     print(f"Sleeping for {number} seconds")
+    with open('last_sleep.txt', 'w') as f:
+        f.write(f"Next call at {next_call_time.strftime('%Y-%m-%d %H:%M:%S')}\n")
+        f.flush()
+
     sleep(number)
     message = f"{random.choice(messages_part1)}, {random.choice(messages_part2)}"
     print(f"Sending message: {message}")
