@@ -35,7 +35,7 @@ messages_part2 = [
 while True: 
     now = datetime.datetime.now()
     print(f"Current time: {now.hour}") 
-    if (now.hour > 21 or now.hour < 8):
+    if (now.hour > 23 or now.hour < 8):
         sleep(3600)
         continue
     number = random.randint(args.min_sleep, args.max_sleep)
