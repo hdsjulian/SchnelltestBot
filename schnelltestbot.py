@@ -39,7 +39,7 @@ while True:
         continue
     else:
         print("It's daytime, continuing with the bot operations")
-        print(f"Current time: {now.strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"Current time: {now.hour}") 
     number = random.randint(args.min_sleep, args.max_sleep)
     print(f"Sleeping for {number} seconds")
     sleep(number)
