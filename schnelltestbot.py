@@ -33,6 +33,7 @@ messages_part2 = [
 
 while True: 
     now = datetime.datetime.now()
+    print(f"Current time: {now.hour}") 
     if (now.hour > 21 or now.hour < 8):
         print("It's night time, sleeping for 1 hour")
         sleep(3600)
