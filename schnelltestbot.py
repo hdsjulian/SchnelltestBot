@@ -2,8 +2,8 @@
 from time import sleep 
 import random
 import json
-import urllib3
 import re 
+import datetime
 from telegram import Bot
 from botcode import botcode
 import argparse
@@ -19,12 +19,31 @@ chatId = -1002868327646
 #chatId = -1001450910076
 bot = Bot(botcode)
 
-while True: 
+messages_part1 = [
+    "I'm having a breath",
+    "I'm taking a breath",
+    "I'm taking a moment to breathe"
+]
 
+messages_part2 = [
+    "care to join?",
+    "will you join me?",
+    "want to join?"
+]
+
+while True: 
+    now = datetime.datetime.now()
+    if (now.hour > 22 or now.hour < 7):
+        print("It's night time, sleeping for 1 hour")
+        sleep(3600)
+        continue
     number = random.randint(args.min_sleep, args.max_sleep)
     print(f"Sleeping for {number} seconds")
     sleep(number)
-    bot.sendMessage(chatId, "I'm taking a breath. Will you join me?")
+    message = f"{random.choice(messages_part1)}, {random.choice(messages_part2)}"
+    print(f"Sending message: {message}")
+
+    #bot.sendMessage(chatId, message)
 
 
 
