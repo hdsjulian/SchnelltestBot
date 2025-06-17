@@ -25,7 +25,6 @@ while True:
     print(f"Sleeping for {number} seconds")
     sleep(number)
     bot.sendMessage(chatId, "I'm taking a breath. Will you join me?")
-    sleep(60)
 
 
 
