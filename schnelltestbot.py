@@ -36,8 +36,11 @@ while True:
     now = datetime.datetime.now()
     print(f"Current time: {now.hour}") 
     if (now.hour > 21 or now.hour < 8):
+        print("It's outside of the allowed hours (8 AM to 9 PM). Sleeping for 1 hour.")
         sleep(3600)
         continue
+    else:
+        print("It's within the allowed hours (8 AM to 9 PM). Proceeding with the bot operation.")
     number = random.randint(args.min_sleep, args.max_sleep)
     now = datetime.datetime.now()
     next_call_time = now + datetime.timedelta(seconds=number)
