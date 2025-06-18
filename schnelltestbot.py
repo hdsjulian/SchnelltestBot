@@ -46,9 +46,10 @@ while True:
     next_call_time = now + datetime.timedelta(seconds=number)
 
     print(f"Sleeping for {number} seconds")
-    with open('last_sleep.txt', 'w') as f:
-        f.write(f"Next call at {next_call_time.strftime('%Y-%m-%d %H:%M:%S')}\n")
-        f.flush()
+    print(f"Next call at {next_call_time.strftime('%Y-%m-%d %H:%M:%S')}")
+    #with open('last_sleep.txt', 'w') as f:
+    #    f.write(f"Next call at {next_call_time.strftime('%Y-%m-%d %H:%M:%S')}\n")
+    #    f.flush()
 
     sleep(number)
     message = f"{random.choice(messages_part1)}, {random.choice(messages_part2)}"
