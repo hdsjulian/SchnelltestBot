@@ -41,19 +41,19 @@ while True:
         continue
     else:
         print("It's within the allowed hours (8 AM to 9 PM). Proceeding with the bot operation.")
-    number = random.randint(args.min_sleep, args.max_sleep)
-    now = datetime.datetime.now()
-    next_call_time = now + datetime.timedelta(seconds=number)
+        number = random.randint(args.min_sleep, args.max_sleep)
+        now = datetime.datetime.now()
+        next_call_time = now + datetime.timedelta(seconds=number)
 
-    print(f"Sleeping for {number} seconds")
-    print(f"Next call at {next_call_time.strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"Sleeping for {number} seconds")
+        print(f"Next call at {next_call_time.strftime('%Y-%m-%d %H:%M:%S')}")
     #with open('last_sleep.txt', 'w') as f:
     #    f.write(f"Next call at {next_call_time.strftime('%Y-%m-%d %H:%M:%S')}\n")
     #    f.flush()
 
-    sleep(number)
-    message = f"{random.choice(messages_part1)}, {random.choice(messages_part2)}"
-    bot.sendMessage(chatId, message)
+        sleep(number)
+        message = f"{random.choice(messages_part1)}, {random.choice(messages_part2)}"
+        bot.sendMessage(chatId, message)
 
 
 
