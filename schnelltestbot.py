@@ -52,8 +52,9 @@ while True:
     #    f.flush()
 
         sleep(number)
-        message = f"{random.choice(messages_part1)}, {random.choice(messages_part2)}"
-        bot.sendMessage(chatId, message)
+        if (now.hour>21 or now.hour <8) 
+            message = f"{random.choice(messages_part1)}, {random.choice(messages_part2)}"
+            bot.sendMessage(chatId, message)
 
 
 
